@@ -9,7 +9,7 @@ function App() {
 
   // Gastos en local storage
   let gastosIniciales = JSON.parse(localStorage.getItem('gastos'));
-  let estadoPregunta;
+  let estadoPregunta = true;
   if(!gastosIniciales){
     gastosIniciales = [];
     // console.log(gastosIniciales);
