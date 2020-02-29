@@ -19,11 +19,23 @@ function App() {
     estadoPregunta = false;
     // console.log(gastosIniciales);
   }
+
+  // Presupuesto en el local storage
+  let presupuestoInicial = JSON.parse(localStorage.getItem('presupuesto'));
+  if(!presupuestoInicial){
+    presupuestoInicial = 0;
+  }
+
+  //Restante en el local storage
+  let restanteInicial = JSON.parse(localStorage.getItem('restante'));
+  if(!restanteInicial){
+    restanteInicial = 0;
+  }
   
 
   //definir el state
-  const [presupuesto, guardarPresupuesto] = useState(0);
-  const [restante, guardarRestante] = useState(0);
+  const [presupuesto, guardarPresupuesto] = useState(presupuestoInicial);
+  const [restante, guardarRestante] = useState(restanteInicial);
   const [mostrarpregunta, actualizarPregunta] = useState(estadoPregunta);
   const [gastos, guardarGastos] = useState(gastosIniciales);
   const [gasto, guardarGasto] = useState({});
@@ -43,6 +55,22 @@ function App() {
         localStorage.setItem('gastos', JSON.stringify([]));
       }
 
+      // agregar presupuesto al localstorage
+      let presupuestoInicial = JSON.parse(localStorage.getItem('presupuesto'));
+      if(presupuestoInicial){
+        localStorage.setItem('presupuesto', JSON.stringify(presupuesto));
+      }else{
+        localStorage.setItem('presupuesto', JSON.stringify([]));
+      }
+
+      // agregar restante al localstorage
+      let restanteInicial = JSON.parse(localStorage.getItem('restante'));
+      if (restanteInicial) {
+        localStorage.setItem('restante', JSON.stringify(restante));
+      } else {
+        localStorage.setItem('restante', JSON.stringify([]));
+      }
+
       if(creargasto){
 
         // agrega el nuevo presupuesto
@@ -58,7 +86,7 @@ function App() {
         // Resetear a false
         guardarCrearGasto(false);
       }
-  }, [gasto, creargasto, gastos, restante])
+  }, [gasto, creargasto, gastos, restante, presupuesto])
 
   // funcion elimina el gasto
 
